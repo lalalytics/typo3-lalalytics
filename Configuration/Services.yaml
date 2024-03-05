@@ -1,0 +1,15 @@
+services:
+  # general settings
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Z7\Lalalytics\:
+    resource: '../Classes/*'
+
+  Z7\Lalalytics\EventListener\AssetRenderer:
+    tags:
+      - name: event.listener
+        identifier: 'z7/lalalytics'
+        event: TYPO3\CMS\Core\Page\Event\BeforeJavaScriptsRenderingEvent

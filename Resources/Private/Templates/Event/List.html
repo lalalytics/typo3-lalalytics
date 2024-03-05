@@ -1,0 +1,99 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+	xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers" data-namespace-typo3-fluid="true">
+
+<f:layout name="Default" />
+
+<f:section name="Content">
+	<f:flashMessages />
+	<f:variable name="ll" value="LLL:EXT:lalalytics/Resources/Private/Language/locallang_db.xlf" />
+
+	<h1>{f:translate(id: '{ll}:list.title')}</h1>
+
+	<style>
+		/* v11 fix */
+		.badge {
+			background-color: #ddd;
+			color: #222;
+		}
+	</style>
+	<table class="table table-striped">
+		<tr>
+			<th>
+				{f:translate(id: '{ll}:name')}
+			</th>
+			<th>
+				{f:translate(id: '{ll}:site')}
+			</th>
+			<th>
+				{f:translate(id: '{ll}:type')}
+			</th>
+			<th>
+				{f:translate(id: '{ll}:selector')}
+			</th>
+			<th>
+				{f:translate(id: '{ll}:tags')}
+			</th>
+			<th>
+				{f:translate(id: '{ll}:attribute')}
+			</th>
+			<th></th>
+		</tr>
+		<f:for each="{events}" as="event">
+			<tr>
+				<td>
+					<strong>{event.name}</strong>
+					<f:if condition="{event.description}">
+						<br /><small>{event.description}</small>
+					</f:if>
+				</td>
+				<td>
+					<div class="text-nowrap">
+						<f:if condition="{event.site}">
+							<f:then>{event.site}</f:then>
+							<f:else>
+								{f:translate(id: '{ll}:allsites')}
+							</f:else>
+						</f:if>
+					</div>
+				</td>
+				<td>
+					<span class="font-monospace text-nowrap badge badge-secondary">
+						{event.type}
+					</span>
+				</td>
+				<td>
+					<span class="font-monospace text-nowrap badge badge-dark">
+						{event.selector}
+					</span>
+				</td>
+				<td>
+					<div class="text-nowrap">
+						<f:for each="{event.tagsList}" as="tag">
+							<span class="font-monospace text-nowrap badge badge-light">{tag}</span>
+						</f:for>
+					</div>
+				</td>
+				<td>
+					<span class="font-monospace text-nowrap badge badge-light">{event.attribute}</span>
+				</td>
+				<td>
+					<div class="text-nowrap d-flex justify-content-end gap-2">
+						<f:link.action action="edit" arguments="{event: event}" class="btn btn-default">
+							<core:icon identifier="actions-open" size="small" />
+						</f:link.action>
+						<f:link.action action="delete" arguments="{event: event}" class="btn btn-default">
+							<core:icon identifier="actions-delete" size="small" />
+						</f:link.action>
+					</div>
+				</td>
+			</tr>
+		</f:for>
+	</table>
+
+	<f:link.action action="new" class="btn btn-default">
+		<core:icon identifier="actions-add" size="small" />
+		{f:translate(id: '{ll}:new.title')}
+	</f:link.action>
+</f:section>
+
+</html>

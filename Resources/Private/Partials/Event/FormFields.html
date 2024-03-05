@@ -1,0 +1,63 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+
+<f:variable name="ll" value="LLL:EXT:lalalytics/Resources/Private/Language/locallang_db.xlf" />
+
+<div class="mb-3">
+	<label class="form-label" for="name">
+		<f:translate key="{ll}:name" /> *
+	</label>
+	<f:form.textfield property="name" id="name" class="form-control" required="1"
+		placeholder="{f:translate(id: '{ll}:name.placeholder')}" />
+</div>
+
+<div class="mb-3">
+	<label class="form-label" for="description">
+		<f:translate key="{ll}:description" />
+	</label>
+	<f:form.textarea property="description" id="description" cols="40" rows="3" class="form-control"
+		placeholder="{f:translate(id: '{ll}:description.placeholder')}" />
+</div>
+
+<div class=" mb-3">
+	<label class="form-label" for="site">
+		<f:translate key="{ll}:site" /> *
+	</label>
+	<f:form.select property="site" options="{sites}" optionValueField="identifier" optionLabelField="base"
+		prependOptionLabel="All" class="form-select" />
+</div>
+
+<div class="row mb-3">
+	<div class="col-12 col-md-6">
+		<label class="form-label" for="type">
+			<f:translate key="{ll}:type" /> *
+		</label>
+		<f:form.select property="type" options="{'click':'click', 'submit': 'submit', 'hashchange': 'hashchange'}"
+			class="form-select" />
+	</div>
+	<div class="col-12 col-md-6">
+		<label class="form-label" for="selector">
+			<f:translate key="{ll}:selector" /> *
+		</label>
+		<f:form.textfield property="selector" id="selector" class="form-control" required="1"
+			placeholder="{f:translate(id: '{ll}:selector.placeholder')}" />
+	</div>
+</div>
+
+<div class="row mb-3">
+	<div class="col-12 col-md-6">
+		<label class="form-label" for="tags">
+			<f:translate key="{ll}:tags" />
+		</label>
+		<f:form.textfield property="tags" id="tags" placeholder="{f:translate(id: '{ll}:tags.placeholder')}"
+			class="form-control" />
+	</div>
+	<div class="col-12 col-md-6">
+		<label class="form-label" for="attribute">
+			<f:translate key="{ll}:attribute" />
+		</label>
+		<f:form.textfield property="attribute" id="attribute"
+			placeholder="{f:translate(id: '{ll}:attribute.placeholder')}" class="form-control" />
+	</div>
+</div>
+
+</html>

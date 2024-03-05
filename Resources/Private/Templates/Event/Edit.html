@@ -1,0 +1,24 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+	xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers" data-namespace-typo3-fluid="true">
+
+<f:layout name="Default" />
+
+<f:section name="Content">
+	<f:variable name="ll" value="LLL:EXT:lalalytics/Resources/Private/Language/locallang_db.xlf" />
+
+	<h1>
+		{f:translate(id: '{ll}:edit.title')}
+	</h1>
+
+	<f:flashMessages />
+
+	<f:form action="update" name="event" object="{event}">
+		<f:render partial="Event/FormFields" arguments="{event: event, sites: sites}" />
+		<button class="btn btn-default">
+			<core:icon identifier="actions-save" size="small" />
+			{f:translate(id: '{ll}:save')}
+		</button>
+	</f:form>
+</f:section>
+
+</html>
