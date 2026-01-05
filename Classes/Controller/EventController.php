@@ -19,7 +19,7 @@ class EventController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         protected SiteFinder $siteFinder
     ) {}
 
-    public function initializeAction()
+    public function initializeAction() : void
     {
         if (!$GLOBALS['BE_USER']->check('modules', 'site_LalalyticsBackend')) {
             die('access denied');
@@ -29,19 +29,17 @@ class EventController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     public function listAction(): ResponseInterface
     {
         $events = $this->eventRepository->findAll();
-        $this->view->assign('events', $events);
         $moduleTemplate = $this->moduleTemplateFactory->create($this->request);
-        $moduleTemplate->setContent($this->view->render());
-        return $this->htmlResponse($moduleTemplate->renderContent());
+        $moduleTemplate->assign('events', $events);
+        return $moduleTemplate->renderResponse('Event/List');
     }
 
     public function newAction(): ResponseInterface
     {
         $sites = $this->siteFinder->getAllSites();
-        $this->view->assign('sites', $sites);
         $moduleTemplate = $this->moduleTemplateFactory->create($this->request);
-        $moduleTemplate->setContent($this->view->render());
-        return $this->htmlResponse($moduleTemplate->renderContent());
+        $moduleTemplate->assign('sites', $sites);
+        return $moduleTemplate->renderResponse('Event/New');
     }
 
     public function createAction(Event $newEvent): ResponseInterface
@@ -56,11 +54,10 @@ class EventController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     public function editAction(Event $event): ResponseInterface
     {
         $sites = $this->siteFinder->getAllSites();
-        $this->view->assign('sites', $sites);
-        $this->view->assign('event', $event);
         $moduleTemplate = $this->moduleTemplateFactory->create($this->request);
-        $moduleTemplate->setContent($this->view->render());
-        return $this->htmlResponse($moduleTemplate->renderContent());
+        $moduleTemplate->assign('sites', $sites);
+        $moduleTemplate->assign('event', $event);
+        return $moduleTemplate->renderResponse('Event/Edit');
     }
 
     public function updateAction(Event $event): ResponseInterface

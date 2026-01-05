@@ -42,7 +42,10 @@ class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
     public function getTagsList(): array
     {
-        return explode(',', $this->tags);
+        return match($this->tags) {
+            '' => [],
+            default => explode(',', $this->tags)
+        };
     }
 
     public function setTags(string $tags)
