@@ -42,7 +42,7 @@ class ProxyForward implements MiddlewareInterface
                     ->withScheme($target->getScheme())
                     ->withHost($target->getHost())
                     ->withPort($target->getPort());
-                $forwardRequest = $serverRequest->withUri($uri)->withoutHeader('cookie');
+                $forwardRequest = $serverRequest->withUri($uri)->withoutHeader('cookie')->withHeader('accept-encoding', 'gzip, deflate, br');
 
                 try {
                     return (new \GuzzleHttp\Client())->send($forwardRequest)
