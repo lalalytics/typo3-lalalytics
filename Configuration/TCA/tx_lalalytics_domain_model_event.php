@@ -18,7 +18,7 @@ return [
             'endtime' => 'endtime',
         ],
         'searchFields' => 'site,type,selector,name,description,tags,attribute',
-        'iconfile' => 'EXT:lalalytics/Resources/Public/Icons/gif'
+        'iconfile' => 'EXT:lalalytics/Resources/Public/Icons/tx_lalalytics_domain_model_event.svg'
     ],
     'types' => [
         '1' => ['showitem' => 'site, type, selector, name, description, tags, attribute, --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language, sys_language_uid, l10n_parent, l10n_diffsource, --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access, hidden, starttime, endtime'],
