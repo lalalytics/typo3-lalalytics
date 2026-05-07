@@ -20,7 +20,7 @@ class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         return $this->name;
     }
-    public function setName(string $name)
+    public function setName(string $name): void
     {
         $this->name = $name;
     }
@@ -30,7 +30,7 @@ class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
         return $this->description;
     }
 
-    public function setDescription(string $description)
+    public function setDescription(string $description): void
     {
         $this->description = $description;
     }
@@ -48,7 +48,7 @@ class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
         };
     }
 
-    public function setTags(string $tags)
+    public function setTags(string $tags): void
     {
         $this->tags = $tags;
     }
@@ -58,7 +58,7 @@ class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
         return $this->selector;
     }
 
-    public function setSelector(string $selector)
+    public function setSelector(string $selector): void
     {
         $this->selector = $selector;
     }
@@ -68,7 +68,7 @@ class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
         return $this->attribute;
     }
 
-    public function setAttribute(string $attribute)
+    public function setAttribute(string $attribute): void
     {
         $this->attribute = $attribute;
     }
@@ -78,7 +78,7 @@ class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
         return $this->type;
     }
 
-    public function setType(string $type)
+    public function setType(string $type): void
     {
         $this->type = $type;
     }
@@ -88,7 +88,7 @@ class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
         return $this->site;
     }
 
-    public function setSite(string $site)
+    public function setSite(string $site): void
     {
         $this->site = $site;
     }

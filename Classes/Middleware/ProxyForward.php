@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Z7\Lalalytics\Middleware;
 
 use GuzzleHttp\Exception\TransferException;

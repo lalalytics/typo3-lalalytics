@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Z7\Lalalytics\Frontend\Typolink;
 
 use TYPO3\CMS\Frontend\Typolink\FileOrFolderLinkBuilder;

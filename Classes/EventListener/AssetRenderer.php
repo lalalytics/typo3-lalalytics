@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Z7\Lalalytics\EventListener;
 
 use Psr\Http\Message\ServerRequestInterface;
