@@ -33,8 +33,22 @@ class AssetRenderer
             $code = (string) ($config['lalalytics_code'] ?? '');
             if ($enabled && !empty($code)) {
                 $endpoint = (bool) ($config['lalalytics_proxy'] ?? false) ? '/_lala' : 'https://i.lalalytics.com';
-                $event->getAssetCollector()->addInlineJavaScript('lala_snippet_1', "(function(w,l='lala'){w[l]=w[l]||function(k,v){(w[l].q=w[l].q||[]).push([k,v])};})(window);", [], ['priority' => true]);
-                $event->getAssetCollector()->addInlineJavaScript('lala_snippet_2', '', ['src' => $endpoint . '/ingest/js/v1/' . $code, 'async' => 'async'], ['priority' => true]);
+
+                // Static init script (CSP: served from 'self')
+                $event->getAssetCollector()->addJavaScript(
+                    'lala_init',
+                    'EXT:lalalytics/Resources/Public/JavaScript/LalaInit.js',
+                    [],
+                    ['priority' => true]
+                );
+
+                // External tracking script (CSP allows i.lalalytics.com or 'self' for proxy)
+                $event->getAssetCollector()->addJavaScript(
+                    'lala_tracker',
+                    $endpoint . '/ingest/js/v1/' . $code,
+                    ['async' => 'async'],
+                    ['priority' => true, 'external' => true]
+                );
             }
 
             // add custom events
@@ -48,29 +62,22 @@ class AssetRenderer
             }
             if (count($events) > 0) {
                 $jsonEvents = json_encode($groupedEvents);
-                $js = <<<EOD
-                (function() {
-                    const events = $jsonEvents;
-                    const _lala = (n,t) => (typeof window['lala'] === "function") ? lala(n,t) : console.log(n,t);
-                    const parseTags = (t) => Array.isArray(window.lalaGlobalTags) ? {tags: window.lalaGlobalTags.concat(t)} : {tags: t};
-                    const defaultHandler = (ev) => {
-                        events[ev.type].forEach((e) => {
-                            const el = ev.target.closest(e.sel);
-                            if (el !== null) {
-                                let tags = e.tags || [];
-                                const t = el.getAttribute(e.attr);
-                                if (e.attr && t) {
-                                    tags = tags.concat(t);
-                                }
-                                _lala(e.name, parseTags(tags));
-                            }
-                        });
-                    }
-                    const hashchangeHandler = (ev) => events[ev.type].filter((e) => e.sel === location.hash).forEach((e) => _lala(e.name, parseTags(e.tags)));
-                    Object.keys(events).forEach((e) => window.addEventListener(e, (e === 'hashchange' ? hashchangeHandler : defaultHandler), { passive: true }))
-                })();
-                EOD;
-                $event->getAssetCollector()->addInlineJavaScript('lala', $js);
+
+                // Output event data as JSON (type="application/json" is not executed, no CSP restriction)
+                $event->getAssetCollector()->addInlineJavaScript(
+                    'lala_events_data',
+                    $jsonEvents,
+                    ['type' => 'application/json', 'id' => 'lala-events-data'],
+                    []
+                );
+
+                // Static events handler script (CSP: served from 'self')
+                $event->getAssetCollector()->addJavaScript(
+                    'lala_events',
+                    'EXT:lalalytics/Resources/Public/JavaScript/lalalytics.js',
+                    [],
+                    []
+                );
             }
         }
     }
