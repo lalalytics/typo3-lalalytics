@@ -37,7 +37,7 @@ class AssetRenderer
                 // Static init script (CSP: served from 'self')
                 $event->getAssetCollector()->addJavaScript(
                     'lala_init',
-                    'EXT:lalalytics/Resources/Public/JavaScript/LalaInit.js',
+                    'EXT:lalalytics/Resources/Public/JavaScript/lalalytics-init.js',
                     [],
                     ['priority' => true]
                 );

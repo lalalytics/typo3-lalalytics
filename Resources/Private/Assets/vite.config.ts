@@ -10,6 +10,7 @@ export default defineConfig({
     emptyOutDir: false,
     rollupOptions: {
       input: {
+        "lalalytics-init": "lalalytics-init.js",
         lalalytics: "lalalytics.ts",
       },
       output: {

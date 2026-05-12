@@ -1,0 +1,1 @@
+(function(e,t=`lala`){e[t]=e[t]||function(n,r){(e[t].q=e[t].q||[]).push([n,r])}})(window);
